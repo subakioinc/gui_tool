@@ -95,3 +95,13 @@ First, deploy the new version to PyPI. In order to do that, perform the followin
 ### Code style
 
 Please follow the [Zubax Python Coding Conventions](https://kb.zubax.com/x/_oAh).
+
+## UAVCAN GUI Tool 소개
+ * CAN bus 상의 UAVCAN 전송 내용 분석 및 실시간 모니터링
+ * 실시간으로 정보를 그래프로 표시
+ * 원격 node 재설정 (uavcan.protocol.param).
+ * 원격 node Firmware 업데이트
+ * IPython 콘솔을 이용하여 Python 스크립트 이용
+ * 이종의 CAN 어댑터 백엔드 지원:
+   * SLCAN (LAWICEL) 어댑터, 예) Zubax Babel.
+   * Linux SocketCAN.
