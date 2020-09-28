@@ -97,7 +97,7 @@ class MainWindow(QMainWindow):
     def __init__(self, node, iface_name):
         # Parent
         super(MainWindow, self).__init__()
-        self.setWindowTitle('UAVCAN GUI Tool')
+        self.setWindowTitle('UAVCAN 도구')
         self.setWindowIcon(get_app_icon())
 
         self._node = node
