@@ -148,7 +148,7 @@ class NodeTable(BasicTable):
 class NodeMonitorWidget(QGroupBox):
     def __init__(self, parent, node):
         super(NodeMonitorWidget, self).__init__(parent)
-        self.setTitle('Online nodes (double click for more options)')
+        self.setTitle('온라인 node 목록 (옵션을 보려면 더블클릭하세요.)')
 
         self._node = node
         self.on_info_window_requested = lambda *_: None
@@ -181,13 +181,13 @@ class NodeMonitorWidget(QGroupBox):
 
     def _update_status(self):
         if self._node.is_anonymous:
-            self._status_label.setText('Discovery is not possible - local node is configured in anonymous mode')
+            self._status_label.setText('다른 node 탐지 불가 - local node에 ID를 할당하세요.')
         else:
             num_undiscovered = len(list(self.monitor.find_all(lambda e: not e.discovered)))
             if num_undiscovered > 0:
-                self._status_label.setText('Node discovery is in progress, %d left...' % num_undiscovered)
+                self._status_label.setText('Node 탐지 수행 중...., 남은 개수 : %d ' % num_undiscovered)
             else:
-                self._status_label.setText('All nodes are discovered')
+                self._status_label.setText('모든 node들을 탐지하였습니다.')
 
     def _show_info_window(self, node_id):
         self.on_info_window_requested(node_id)

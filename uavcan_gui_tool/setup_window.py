@@ -244,12 +244,12 @@ def run_setup_window(icon, dsdl_path=None):
         try:
             baud_rate_value = int(baudrate.currentText())
         except ValueError:
-            show_error('Invalid parameters', 'Could not parse baud rate', 'Please specify correct baud rate',
+            show_error('입력한 값이 유효하지 않습니다.', 'baud rate값을 인식할 수 없습니다.', '올바른 baud rate값을 넣어주세요',
                        parent=win)
             return
         if not (min(STANDARD_BAUD_RATES) <= baud_rate_value <= max(STANDARD_BAUD_RATES)):
-            show_error('Invalid parameters', 'Baud rate is out of range',
-                       'Baud rate value should be within [%s, %s]' %
+            show_error('입력한 값이 유효하지 않습니다.', '범위를 벗어나는 baud rate값',
+                       'baud rate값의 범위는 [%s, %s] 입니다.' %
                        (min(STANDARD_BAUD_RATES), max(STANDARD_BAUD_RATES)),
                        parent=win)
             return
@@ -257,7 +257,7 @@ def run_setup_window(icon, dsdl_path=None):
         kwargs['bitrate'] = int(bitrate.value())
         result_key = str(combo.currentText()).strip()
         if not result_key:
-            show_error('Invalid parameters', 'Interface name cannot be empty', 'Please select a valid interface',
+            show_error('입력한 값이 유효하지 않습니다.', 'Interface를 채워주세요.', '유효한 interface를 선택하세요.',
                        parent=win)
             return
         try:
@@ -268,16 +268,16 @@ def run_setup_window(icon, dsdl_path=None):
 
     ok.clicked.connect(on_ok)
 
-    can_group = QGroupBox('CAN interface setup', win)
+    can_group = QGroupBox('CAN 인터페이스 설정', win)
     can_layout = QVBoxLayout()
-    can_layout.addWidget(QLabel('Select CAN interface'))
+    can_layout.addWidget(QLabel('CAN 인터페이스 선택'))
     can_layout.addWidget(combo)
 
-    slcan_group = QGroupBox('SLCAN adapter settings', win)
+    slcan_group = QGroupBox('SLCAN 어댑터 설정', win)
     slcan_layout = QGridLayout()
     slcan_layout.addWidget(QLabel('CAN bus bit rate:'), 0, 0)
     slcan_layout.addWidget(bitrate, 0, 1)
-    slcan_layout.addWidget(QLabel('Adapter baud rate (not applicable to USB-CAN adapters):'), 1, 0)
+    slcan_layout.addWidget(QLabel('어댑터 baud rate (USB-CAN 어댑터에 적용되지 않음):'), 1, 0)
     slcan_layout.addWidget(baudrate, 1, 1)
     slcan_group.setLayout(slcan_layout)
 

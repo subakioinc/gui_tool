@@ -64,4 +64,14 @@
    * closeEvent()
 
 
-# 
+# setup_window.py
+ * main() -> run_setup_window() 호출
+ * run_setup_window() 
+   * Dialog 인스턴스 생성
+   * interface 목록 업데이트 (serial 포트 업데이트)
+   * OK 버튼 클릭 callback 함수
+
+
+# UI layout
+ * run_setup_window()
+ * 각종 widget

@@ -166,7 +166,7 @@ class InfoBox(QGroupBox):
 class Controls(QGroupBox):
     def __init__(self, parent, node, target_node_id, file_server_widget, dynamic_node_id_allocator_widget):
         super(Controls, self).__init__(parent)
-        self.setTitle('Node controls')
+        self.setTitle('Node 제어')
 
         self._node = node
         self._target_node_id = target_node_id
@@ -174,16 +174,16 @@ class Controls(QGroupBox):
         self._dynamic_node_id_allocator_widget = dynamic_node_id_allocator_widget
 
         self._restart_button = make_icon_button('power-off', 'Restart the node [uavcan.protocol.RestartNode]', self,
-                                                text='Restart', on_clicked=self._do_restart)
+                                                text='재시작'', on_clicked=self._do_restart)
 
         self._transport_stats_button = make_icon_button('truck',
                                                         'Request transport stats [uavcan.protocol.GetTransportStats]',
-                                                        self, text='Get Transport Stats',
+                                                        self, text='전송 상태',
                                                         on_clicked=self._do_get_transport_stats)
 
         self._update_button = make_icon_button('bug',
                                                'Request firmware update [uavcan.protocol.file.BeginFirmwareUpdate]',
-                                               self, text='Update Firmware', on_clicked=self._do_firmware_update)
+                                               self, text='펌웨어 업데이트', on_clicked=self._do_firmware_update)
 
         layout = QHBoxLayout(self)
         layout.addWidget(self._restart_button, 1)
@@ -533,23 +533,23 @@ class ConfigParams(QGroupBox):
 
     def __init__(self, parent, node, target_node_id):
         super(ConfigParams, self).__init__(parent)
-        self.setTitle('Configuration parameters (double click to change)')
+        self.setTitle('설정 parameters (더블클릭 후 변경)')
 
         self._node = node
         self._target_node_id = target_node_id
 
         self._read_all_button = make_icon_button('refresh', 'Fetch all config parameters from the node', self,
-                                                 text='Fetch All', on_clicked=self._do_reload)
+                                                 text='정보 불러오기', on_clicked=self._do_reload)
 
         opcodes = uavcan.protocol.param.ExecuteOpcode.Request()
 
         self._save_button = \
             make_icon_button('database', 'Commit configuration to the non-volatile storage [OPCODE_SAVE]', self,
-                             text='Store All', on_clicked=partial(self._do_execute_opcode, opcodes.OPCODE_SAVE))
+                             text='저장하기', on_clicked=partial(self._do_execute_opcode, opcodes.OPCODE_SAVE))
 
         self._erase_button = \
             make_icon_button('eraser', 'Clear the non-volatile configuration storage [OPCODE_ERASE]', self,
-                             text='Erase All', on_clicked=partial(self._do_execute_opcode, opcodes.OPCODE_ERASE))
+                             text='삭제하기', on_clicked=partial(self._do_execute_opcode, opcodes.OPCODE_ERASE))
 
         columns = [
             BasicTable.Column('Idx',
@@ -661,7 +661,7 @@ class NodePropertiesWindow(QDialog):
                  dynamic_node_id_allocator_widget):
         super(NodePropertiesWindow, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)              # This is required to stop background timers!
-        self.setWindowTitle('Node Properties [%d]' % target_node_id)
+        self.setWindowTitle('Node 속성 [%d]' % target_node_id)
         self.setMinimumWidth(640)
 
         self._target_node_id = target_node_id
