@@ -46,7 +46,7 @@ class LogMessageDisplayWidget(QGroupBox):
 
     def __init__(self, parent, node):
         super(LogMessageDisplayWidget, self).__init__(parent)
-        self.setTitle('Log messages (uavcan.protocol.debug.LogMessage)')
+        self.setTitle('로그 messages (uavcan.protocol.debug.LogMessage)')
 
         self._log_widget = RealtimeLogWidget(self, columns=self.COLUMNS, multi_line_rows=True, started_by_default=True)
         self._log_widget.table.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)

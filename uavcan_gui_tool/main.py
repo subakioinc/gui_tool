@@ -97,7 +97,7 @@ class MainWindow(QMainWindow):
     def __init__(self, node, iface_name):
         # Parent
         super(MainWindow, self).__init__()
-        self.setWindowTitle('UAVCAN GUI Tool')
+        self.setWindowTitle('UAVCAN 도구')
         self.setWindowIcon(get_app_icon())
 
         self._node = node
@@ -134,7 +134,7 @@ class MainWindow(QMainWindow):
         quit_action.setShortcut(QKeySequence('Ctrl+Shift+Q'))
         quit_action.triggered.connect(self.close)
 
-        file_menu = self.menuBar().addMenu('&File')
+        file_menu = self.menuBar().addMenu('&파일')
         file_menu.addAction(quit_action)
 
         #
@@ -166,7 +166,7 @@ class MainWindow(QMainWindow):
         show_can_adapter_controls_action.setStatusTip('Open CAN adapter control panel (if supported by the adapter)')
         show_can_adapter_controls_action.triggered.connect(self._try_spawn_can_adapter_control_panel)
 
-        tools_menu = self.menuBar().addMenu('&Tools')
+        tools_menu = self.menuBar().addMenu('&도구')
         tools_menu.addAction(show_bus_monitor_action)
         tools_menu.addAction(show_console_action)
         tools_menu.addAction(new_subscriber_action)
@@ -176,7 +176,7 @@ class MainWindow(QMainWindow):
         #
         # Panels menu
         #
-        panels_menu = self.menuBar().addMenu('&Panels')
+        panels_menu = self.menuBar().addMenu('&패널')
 
         for idx, panel in enumerate(PANELS):
             action = QAction(panel.name, self)
@@ -201,7 +201,7 @@ class MainWindow(QMainWindow):
         about_action = QAction(get_icon('info'), '&About', self)
         about_action.triggered.connect(lambda: AboutWindow(self).show())
 
-        help_menu = self.menuBar().addMenu('&Help')
+        help_menu = self.menuBar().addMenu('&도움말')
         help_menu.addAction(uavcan_website_action)
         help_menu.addAction(show_log_directory_action)
         help_menu.addAction(about_action)
@@ -611,24 +611,24 @@ def main():
             node.spin(0.1)
         except uavcan.transport.TransferError:
             # allow unrecognized messages on startup:
-            logger.warning('UAVCAN Transfer Error occurred on startup', exc_info=True)
+            logger.warning('구동시점에 UAVCAN 전송 에러 발생', exc_info=True)
             break
         except Exception as ex:
-            logger.error('UAVCAN node init failed', exc_info=True)
+            logger.error('UAVCAN node 초기화 실패', exc_info=True)
             show_error('Fatal error', 'Could not initialize UAVCAN node', ex, blocking=True)
         else:
             break
 
-    logger.info('Creating main window; iface %r', iface)
+    logger.info('main window 생성; iface %r', iface)
     window = MainWindow(node, iface)
     window.show()
 
     try:
         update_checker.begin_async_check(window)
     except Exception:
-        logger.error('Could not start update checker', exc_info=True)
+        logger.error('update 검사기를 구동할 수 없음', exc_info=True)
 
-    logger.info('Init complete, invoking the Qt event loop')
+    logger.info('초기화 완료 및 Qt event loop 호출')
     exit_code = app.exec_()
 
     node.close()

@@ -4,41 +4,38 @@ UAVCAN GUI Tool
 [![Travis CI](https://travis-ci.org/UAVCAN/gui_tool.svg?branch=master)](https://travis-ci.org/UAVCAN/gui_tool)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/UAVCAN/general)
 
-UAVCAN GUI Tool is a cross-platform (Windows/Linux/OSX) application for UAVCAN bus management and diagnostics.
+UAVCAN GUI Tool은 UAVCAN bus 관리 및 진단을 위한 크로스 플랫폼(Linux/Windows)를 지원하는 어플리케이션이다.
 
-[Read the docs at **uavcan.org/GUI_Tool**](http://uavcan.org/GUI_Tool).
+[**uavcan.org/GUI_Tool** 에 있는 문서 읽기](http://uavcan.org/GUI_Tool).
 
-[Ask questions at **forum.uavcan.org**](https://forum.uavcan.org).
+[**forum.uavcan.org** 포럼에 질문하기](https://forum.uavcan.org).
 
-Read installation instructions:
+설치 방법 :
 
 - [**LINUX**](#installing-on-linux)
 - [**WINDOWS**](#installing-on-windows)
-- [**OSX**](#installing-on-osx)
 
-![UAVCAN GUI Tool screenshot](screenshot.png "UAVCAN GUI Tool screenshot")
+![UAVCAN GUI Tool 화면 캡쳐](screenshot.png "UAVCAN GUI Tool screenshot")
 
-## Installing on Linux
+## Linux에 설치하기
 
-The general approach is simple:
+간단한 방법 :
 
-1. Install PyQt5 for Python 3 using your OS' package manager (e.g. APT).
-2. Install the application itself from Git via PIP:
+1. OS의 패키지 관리자(APT 사용)를 통해서 Python 3용 PyQt5 설치하기
+2. PIP를 통해 Git에서 바로 받아서 설치하기:
 `pip3 install git+https://github.com/UAVCAN/gui_tool@master`
-(it is not necessary to clone this repository manually).
-Alternatively, if you're a developer and you want to install your local copy, use `pip3 install .`.
+(이렇게 하면 수동으로 repository를 clone할 필요가 없다.).
+또 다른 방법으로, 개발자라면 local copy로 설치를 원하는 경우 `pip3 install .` 을 실행한다.
 
-It also may be necessary to install additional dependencies, depending on your distribution (see details below).
+배포판에 따라서 추가적인 의존성을 설치가 필요할 수도 있다. (아래 참조)
 
-Once the application is installed, you should see new desktop entries available in your desktop menu;
-also a new executable `uavcan_gui_tool` will be available in your `PATH`.
-If your desktop environment doesn't update the menu automatically, you may want to do it manually, e.g.
-by invoking `sudo update-desktop-database` (command depends on the distribution).
+일단 어플리케이션이 설치되면, 데스크탑 메뉴에서 새로운 데스트탑 엔트리가 보인다;
+`PATH`에 설정되어`uavcan_gui_tool`로 실행이 가능하다.
+만약 데스크탑 환경이 메뉴를 자동으로 업데이트하지 않는다면, 수동으로 해야하며 이때 `sudo update-desktop-database` 를 실행한다.
 
-It is also recommended to install Matplotlib - it is not used by the application itself,
-but it may come in handy when using the embedded IPython console.
+Matplotlib을 설치하는 것을 추천한다. 어플리케이션 자체에서 사용하지는 않지만 IPython 콘솔을 사용할때 편리하다.
 
-### Debian-based distributions
+### Debian-based 배포판
 
 ```bash
 sudo apt-get install -y python3-pip python3-setuptools python3-wheel
@@ -46,44 +43,32 @@ sudo apt-get install -y python3-numpy python3-pyqt5 python3-pyqt5.qtsvg git-core
 sudo pip3 install git+https://github.com/UAVCAN/gui_tool@master
 ```
 
-#### Troubleshooting
+#### 문제 해결
 
-If installation fails with an error like below, try to install IPython directly with `sudo pip3 install ipython`:
+아래와 같은 에러로 설치 실패 시, IPython을 `sudo pip3 install ipython` 명령으로 직접 설치가 가능하다:
 
 > error: Setup script exited with error in ipython setup command:
 > Invalid environment marker: sys_platform == "darwin" and platform_python_implementation == "CPython"
 
-If you're still unable to install the package, please open a ticket.
 
-### RPM-based distributions
-
-*Maintainers wanted*
-
-#### Fedora 29+
-```bash
-sudo dnf install python3-PyQt5
-sudo pip3 install git+https://github.com/UAVCAN/gui_tool@master
-```
-
-## Installing on Windows
+## Windows에서 설치하기
 
 In order to install this application,
 **download and install the latest `.msi` package from here: <https://files.zubax.com/products/org.uavcan.gui_tool/>**.
 
-### Building the MSI package
+### MSI 패키지 만들기
 
-These instructions are for developers only. End users should use pre-built MSI packages (see the link above).
 
-First, install dependencies:
+먼저 의존성 설치하기 :
 
-* [WinPython 3.4 or newer, pre-packaged with PyQt5](http://winpython.github.io/).
-Make sure that `python` can be invoked from the terminal; if it can't, check your `PATH`.
+* [WinPython 3.4 or 이후 버전, pre-packaged with PyQt5](http://winpython.github.io/).
+터미널에서 `python` 실행시 python이 실행되는지 확인한다. 만약 실행되지 않는다면 `PATH`를 확인한다.
 * Windows 10 SDK.
-[Free edition of Visual Studio is packaged with Windows SDK](https://www.visualstudio.com/).
+[Visual Studio의 Community 버전을 설치하면서 Windows SDK 설치](https://www.visualstudio.com/).
 
-Then, place the `*.pfx` file containing the code signing certificate in the outer directory
-(the build script will search for `../*.pfx`).
-Having done that, execute the following (the script will prompt you for password to read the certificate file):
+다음으로 외부 디렉토리에 코드 서명 인증서를 포함하는 `*.pfx` 파일을 위치시킨다.
+(빌드 스크립트는 `../*.pfx` 을 검색한다).
+여기까지 완료한 후에 다음을 실행한다.(스크립트는 인증서 파일을 읽기 위해서 패스워드 프롬프트가 나타난다):
 
 ```dos
 python -m pip uninstall -y uavcan
@@ -92,43 +77,7 @@ python setup.py install
 python setup.py bdist_msi
 ```
 
-Collect the resulting signed MSI from `dist/`.
-
-## Installing on OSX
-
-OSX support is a bit lacking in the way that installation doesn't create an entry in the applications menu,
-but this issue should be fixed someday in the future.
-Other than that, everything appears to function more or less correctly.
-If you have a choice, it is recommended to use Linux or Windows instead,
-as these ports are supported much better at the moment.
-
-### Homebrew option
-
-* Install the Homebrew package manager for OSX.
-* Run the following commands:
-
-```bash
-brew install python3
-brew postinstall python3
-pip3 install PyQt5
-pip3 install git+https://github.com/UAVCAN/gui_tool@master
-uavcan_gui_tool
-```
-
-### MacPorts option
-
-Install XCode from App Store, install MacPorts from <https://www.macports.org/install.php>,
-then run the commands below.
-If you're prompted to install Command Line Developer Tools, agree.
-
-```bash
-sudo port selfupdate
-sudo port install curl-ca-bundle py35-pip py35-pyqt5 py35-numpy
-sudo python3.5 -m pip install git+https://github.com/UAVCAN/gui_tool@master
-```
-
-We would like to provide prebuilt application packages instead of the mess above.
-Contributions adding this capability would be welcome.
+`dist/` 위치에서 서명된 MSI를 수집하게 된다.
 
 ## Development
 
@@ -140,9 +89,18 @@ First, deploy the new version to PyPI. In order to do that, perform the followin
 2. Create a new tag with the same version number as in the version file, e.g. `git tag -a 1.0 -m v1.0`.
 3. Push to master: `git push && git push --tags`
 
-Then, build a Windows MSI package using the instructions above, and upload the resulting MSI to
-the distribution server.
+다음으로 위에서 설명한 방법으로 Windows MSI 패키지를 빌드하고 결과로 나온 MSI 파일을 배포 서버에 업로드 시킨다.
 
 ### Code style
 
 Please follow the [Zubax Python Coding Conventions](https://kb.zubax.com/x/_oAh).
+
+## UAVCAN GUI Tool 소개
+ * CAN bus 상의 UAVCAN 전송 내용 분석 및 실시간 모니터링
+ * 실시간으로 정보를 그래프로 표시
+ * 원격 node 재설정 (uavcan.protocol.param).
+ * 원격 node Firmware 업데이트
+ * IPython 콘솔을 이용하여 Python 스크립트 이용
+ * 이종의 CAN 어댑터 백엔드 지원:
+   * SLCAN (LAWICEL) 어댑터, 예) Zubax Babel.
+   * Linux SocketCAN.

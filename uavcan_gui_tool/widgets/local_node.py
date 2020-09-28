@@ -22,13 +22,13 @@ NODE_ID_MAX = 127
 class LocalNodeWidget(QGroupBox):
     def __init__(self, parent, node):
         super(LocalNodeWidget, self).__init__(parent)
-        self.setTitle('Local node properties')
+        self.setTitle('Local node 속성')
 
         self._node = node
         self._node_id_collector = uavcan.app.message_collector.MessageCollector(
             self._node, uavcan.protocol.NodeStatus, timeout=uavcan.protocol.NodeStatus().OFFLINE_TIMEOUT_MS * 1e-3)
 
-        self._node_id_label = QLabel('Set local node ID:', self)
+        self._node_id_label = QLabel('local node ID 설정:', self)
 
         self._node_id_spinbox = QSpinBox(self)
         self._node_id_spinbox.setMaximum(NODE_ID_MAX)
@@ -66,7 +66,7 @@ class LocalNodeWidget(QGroupBox):
             self._node_id_apply.hide()
             self._node_id_label.setText('Local node ID:')
             self._update_timer.stop()
-            flash(self, 'Local node ID set to %d, all functions should be available now', self._node.node_id)
+            flash(self, 'Local node ID를 %d 으로 설정되어, 이제 모든 기능을 사용 가능합니다.', self._node.node_id)
         else:
             prohibited_node_ids = set(self._node_id_collector)
             while True:
@@ -79,7 +79,7 @@ class LocalNodeWidget(QGroupBox):
             if nid in prohibited_node_ids:
                 if self._node_id_apply.isEnabled():
                     self._node_id_apply.setEnabled(False)
-                    flash(self, 'Selected node ID is used by another node, try different one', duration=3)
+                    flash(self, '선택한 node ID를 다른 node가 이미 사용 중이므로 다른 ID를 선택하세요.', duration=3)
             else:
                 self._node_id_apply.setEnabled(True)
 
