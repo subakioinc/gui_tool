@@ -42,17 +42,25 @@
          * service request를 특정 node에게 전달
        * serve()
          * service server를 등록
-         * 
+         * callback 호출 : 특정 type의 service request를 받을때마다 
        * broadcast()
+         * 1회 혹은 주기적으로 message를 broadcast
        * subscribe()
+         * 특정 UAVCAN message를 수신
        * periodic()
+         * 지정한 시간 주기로 지정한 callback 호출
        * defer()
+         * 지정한 시간 이후에 지정한 callback을 호출
        * stop()
+         * 주기적으로 보내던 broadcast들을 모두 중단
        * can_send()
+         * CAN으로 전송
    * _show_console_window()
-     * 
+     * console 창 보여주기
    * _show_node_window()
+     * node 윈도우 보여주기
    * _spin_node()
+     * node 동작 실행
    * closeEvent()
 
 
