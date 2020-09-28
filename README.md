@@ -14,7 +14,6 @@ UAVCAN GUI Tool은 UAVCAN bus 관리 및 진단을 위한 크로스 플랫폼(Li
 
 - [**LINUX**](#installing-on-linux)
 - [**WINDOWS**](#installing-on-windows)
-- [**OSX**](#installing-on-osx)
 
 ![UAVCAN GUI Tool 화면 캡쳐](screenshot.png "UAVCAN GUI Tool screenshot")
 
