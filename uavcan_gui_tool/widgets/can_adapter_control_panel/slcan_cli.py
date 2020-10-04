@@ -330,13 +330,13 @@ class ConfigWidget(QWidget):
             win = ConfigParamEditWindow(self, self._parameters[index], self._cli_iface, callback)
             win.show()
         except Exception as ex:
-            show_error('Parameter Dialog Error', 'Could not open parameter edit dialog.', ex, self)
+            show_error('Parameter Dialog Error', 'parameter 편집 다이얼로그 열기 실패', ex, self)
 
     def _show_callback_result(self, result):
         if isinstance(result, Exception):
-            self.window().show_message('Operation failed: %r', result)
+            self.window().show_message('동작 failed: %r', result)
         elif not result:
-            self.window().show_message('Operation timed out')
+            self.window().show_message('동작 timed out')
         else:
             self.window().show_message('Success')
 
@@ -347,11 +347,11 @@ class ConfigWidget(QWidget):
             self._parameters = []
 
             if params is None:
-                self.window().show_message('Configuration parameters request timed out')
+                self.window().show_message('설정 parameters request timed out')
             elif isinstance(params, Exception):
-                self.window().show_message('Configuration parameters request failed: %r', params)
+                self.window().show_message('설정 parameters request 실패: %r', params)
             else:
-                self.window().show_message('Configuration parameters request succeeded')
+                self.window().show_message('설정 parameters request 성공')
                 self._parameters = params
                 self._table.setRowCount(len(params))
                 for row, par in enumerate(params):
@@ -389,16 +389,16 @@ class CLIWidget(QWidget):
 
         self._command_line.setCompleter(self._command_line_completer)
 
-        self._execute_button = make_icon_button('flash', 'Execute command', self, on_clicked=self._do_execute)
+        self._execute_button = make_icon_button('flash', '실행 명령', self, on_clicked=self._do_execute)
 
         self._response_box = QPlainTextEdit(self)
-        self._response_box.setToolTip('Command output will be printed here')
+        self._response_box.setToolTip('명령 결과는 여기에서 출력')
         self._response_box.setReadOnly(True)
         self._response_box.setLineWrapMode(QPlainTextEdit.NoWrap)
         self._response_box.setFont(get_monospace_font())
         self._response_box.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         try:
-            self._log_viewer.setPlaceholderText('Command output will be printed here')
+            self._log_viewer.setPlaceholderText('명령 결과는 여기에서 출력')
         except AttributeError:      # Old PyQt
             pass
 
@@ -424,10 +424,10 @@ class CLIWidget(QWidget):
         def callback(lines):
             self.setEnabled(True)
             if lines is None:
-                self.window().show_message('Command response timed out')
+                self.window().show_message('Command 응답 timed out')
                 self._response_box.setPlainText('<RESPONSE TIMED OUT>')
             else:
-                self.window().show_message('Command response received')
+                self.window().show_message('Command 응답 수신')
                 self._response_box.setPlainText(lines)
 
         self.setEnabled(False)

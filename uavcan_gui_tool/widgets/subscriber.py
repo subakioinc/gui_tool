@@ -98,12 +98,12 @@ class SubscriberWindow(QDialog):
         self._log_viewer.setFont(get_monospace_font())
         self._log_viewer.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         try:
-            self._log_viewer.setPlaceholderText('Received messages will be printed here in YAML format')
+            self._log_viewer.setPlaceholderText('수신한 message들은 여기서 YAML 포맷으로 출력된다.')
         except AttributeError:      # Old PyQt
             pass
 
         self._num_rows_spinbox = QSpinBox(self)
-        self._num_rows_spinbox.setToolTip('Number of rows to display; large number will impair performance')
+        self._num_rows_spinbox.setToolTip('표시될 행의 수; 값이 커지면 성능이 떨어질 수 있음')
         self._num_rows_spinbox.valueChanged.connect(
             lambda: self._log_viewer.setMaximumBlockCount(self._num_rows_spinbox.value()))
         self._num_rows_spinbox.setMinimum(1)
@@ -116,12 +116,12 @@ class SubscriberWindow(QDialog):
 
         self._msgs_per_sec_estimator = RateEstimator()
 
-        self._num_messages_total_label = QuantityDisplay(self, 'Total', 'msgs')
-        self._num_messages_past_filter_label = QuantityDisplay(self, 'Accepted', 'msgs')
-        self._msgs_per_sec_label = QuantityDisplay(self, 'Accepting', 'msg/sec')
+        self._num_messages_total_label = QuantityDisplay(self, '전체', 'msgs')
+        self._num_messages_past_filter_label = QuantityDisplay(self, '수신한', 'msgs')
+        self._msgs_per_sec_label = QuantityDisplay(self, '수신율', 'msg/sec')
 
         self._type_selector = CommitableComboBoxWithHistory(self)
-        self._type_selector.setToolTip('Name of the message type to subscribe to')
+        self._type_selector.setToolTip('subscribe하는 message type 이름')
         self._type_selector.setInsertPolicy(QComboBox.NoInsert)
         completer = QCompleter(self._type_selector)
         completer.setCaseSensitivity(Qt.CaseSensitive)
@@ -136,11 +136,11 @@ class SubscriberWindow(QDialog):
         self._filter_bar = FilterBar(self)
         self._filter_bar.on_filter = self._install_filter
 
-        self._start_stop_button = make_icon_button('video-camera', 'Begin subscription', self, checkable=True,
+        self._start_stop_button = make_icon_button('video-camera', 'subscription 시작', self, checkable=True,
                                                    on_clicked=self._toggle_start_stop)
-        self._pause_button = make_icon_button('pause', 'Pause updates, non-displayed messages will be queued in memory',
+        self._pause_button = make_icon_button('pause', 'Pause updates, 표시되지 않은 message들은 메모리에 저장',
                                               self, checkable=True)
-        self._clear_button = make_icon_button('trash-o', 'Clear output and reset stat counters', self,
+        self._clear_button = make_icon_button('trash-o', '출력 삭제 및 카운터 리셋', self,
                                               on_clicked=self._do_clear)
 
         self._show_all_message_types = make_icon_button('puzzle-piece',
@@ -194,7 +194,7 @@ class SubscriberWindow(QDialog):
                 return
         except Exception as ex:
             self._num_errors += 1
-            text = '!!! [%d] MESSAGE PROCESSING FAILED: %s' % (self._num_errors, ex)
+            text = '!!! [%d] MESSAGE 처리 실패: %s' % (self._num_errors, ex)
         else:
             self._num_messages_past_filter += 1
             self._msgs_per_sec_estimator.register_event(e.transfer.ts_monotonic)
@@ -232,13 +232,13 @@ class SubscriberWindow(QDialog):
                 return
             data_type = uavcan.TYPENAMES[selected_type]
         except Exception as ex:
-            show_error('Subscription error', 'Could not load requested data type', ex, self)
+            show_error('Subscription error', 'data type을 load할 수 없음', ex, self)
             return
 
         try:
             self._subscriber_handle = self._node.add_handler(data_type, self._on_message)
         except Exception as ex:
-            show_error('Subscription error', 'Could not create requested subscription', ex, self)
+            show_error('Subscription error', 'subscription 생성할 수 없음', ex, self)
             return
 
         self.setWindowTitle('%s [%s]' % (self.WINDOW_NAME_PREFIX, selected_type))

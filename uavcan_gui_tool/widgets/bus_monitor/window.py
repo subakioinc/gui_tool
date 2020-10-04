@@ -272,7 +272,7 @@ class BusMonitorWindow(QMainWindow):
         self._decoded_message_box.setFont(get_monospace_font())
         self._decoded_message_box.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self._decoded_message_box.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-        self._decoded_message_box.setPlainText('Click on a row to see decoded transfer')
+        self._decoded_message_box.setPlainText('행을 클릭하면 전송 내용 확인')
         self._decoded_message_box.setLineWrapMode(QPlainTextEdit.NoWrap)
         self._decoded_message_box.setWordWrapMode(QTextOption.NoWrap)
 

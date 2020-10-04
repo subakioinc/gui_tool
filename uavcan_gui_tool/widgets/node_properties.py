@@ -61,7 +61,7 @@ class FieldValueWidget(QLineEdit):
 class InfoBox(QGroupBox):
     def __init__(self, parent, target_node_id, node_monitor):
         super(InfoBox, self).__init__(parent)
-        self.setTitle('Node info')
+        self.setTitle('Node 정보')
 
         self._target_node_id = target_node_id
         self._node_monitor = node_monitor

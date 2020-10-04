@@ -78,7 +78,7 @@ class JupyterConsoleWindow(QDialog):
     def __init__(self, parent, kernel_manager, banner=None):
         super(JupyterConsoleWindow, self).__init__(parent)
         self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setWindowTitle('Jupyter console')
+        self.setWindowTitle('Jupyter 콘솔')
 
         self._jupyter_widget = JupyterWidget(self, kernel_manager, banner)
 
@@ -103,16 +103,16 @@ class JupyterConsoleWindow(QDialog):
             lambda: self._jupyter_widget.set_default_style(self._style_selector.currentText()))
         self._style_selector.setCurrentIndex(0)
 
-        self._redirect_stdout_checkbox = QCheckBox('Redirect stdout', self)
-        self._redirect_stdout_checkbox.setToolTip('Show stdout output in this console')
+        self._redirect_stdout_checkbox = QCheckBox('표준출력 리다이렉트', self)
+        self._redirect_stdout_checkbox.setToolTip('콘솔에서 표준 출력 보여주기')
         self._redirect_stdout_checkbox.stateChanged.connect(self._update_stdout_redirection)
         self._redirect_stdout_checkbox.setChecked(True)
 
         layout = QVBoxLayout(self)
         controls_layout = QHBoxLayout(self)
-        controls_layout.addWidget(QLabel('Log level:', self))
+        controls_layout.addWidget(QLabel('Log 레벨:', self))
         controls_layout.addWidget(self._log_level_selector)
-        controls_layout.addWidget(QLabel('Color theme:', self))
+        controls_layout.addWidget(QLabel('테마 색상:', self))
         controls_layout.addWidget(self._style_selector)
         controls_layout.addWidget(self._redirect_stdout_checkbox)
         controls_layout.addStretch(1)

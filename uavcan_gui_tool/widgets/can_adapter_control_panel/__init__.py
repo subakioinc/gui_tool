@@ -16,7 +16,7 @@ def spawn_window(parent, node, iface_name):
     if not slcan_cli.CLIInterface.is_backend_supported(driver):
         mbox = QMessageBox(parent)
         mbox.setWindowTitle('Unsupported CAN Backend')
-        mbox.setText('CAN Adapter Control Panel cannot be used with the current CAN backend.')
+        mbox.setText('현재 CAN 백엔드와 CAN Adapter Control Panel을 사용할 수 없습니다.')
         mbox.setInformativeText('The current backend is %r.' % type(driver).__name__)
         mbox.setIcon(QMessageBox.Information)
         mbox.setStandardButtons(QMessageBox.Ok)
@@ -24,8 +24,8 @@ def spawn_window(parent, node, iface_name):
         return
 
     progress_dialog = QProgressDialog(parent)
-    progress_dialog.setWindowTitle('CAN Adapter Control Panel Initialization')
-    progress_dialog.setLabelText('Detecting CAN adapter capabilities...')
+    progress_dialog.setWindowTitle('CAN Adapter Control Panel 초기화')
+    progress_dialog.setLabelText('CAN 아답터 탐색 중...')
     progress_dialog.setMinimumDuration(800)
     progress_dialog.setCancelButton(None)
     progress_dialog.setRange(0, 0)
@@ -36,9 +36,9 @@ def spawn_window(parent, node, iface_name):
 
         if not supported:
             mbox = QMessageBox(parent)
-            mbox.setWindowTitle('Incompatible CAN Adapter')
-            mbox.setText('CAN Adapter Control Panel cannot be used with the connected adapter.')
-            mbox.setInformativeText('Connected SLCAN adapter does not support CLI extensions.')
+            mbox.setWindowTitle('호환되지 않는 CAN Adapter')
+            mbox.setText('연결된 아답터와 CAN Adapter Control Panel을 사용할 수 없습니다.')
+            mbox.setInformativeText('연결된 SLCAN adapter는 CLI를 지원하지 않습니다.')
             mbox.setIcon(QMessageBox.Information)
             mbox.setStandardButtons(QMessageBox.Ok)
             mbox.show()     # Not exec() because we don't want it to block!
