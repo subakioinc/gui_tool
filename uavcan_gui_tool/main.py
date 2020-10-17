@@ -191,10 +191,10 @@ class MainWindow(QMainWindow):
         #
         # Help menu
         #
-        uavcan_website_action = QAction(get_icon('globe'), 'Open UAVCAN &Website', self)
+        uavcan_website_action = QAction(get_icon('globe'), 'UAVCAN &Website 열기', self)
         uavcan_website_action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl('http://uavcan.org')))
 
-        show_log_directory_action = QAction(get_icon('pencil-square-o'), 'Open &Log Directory', self)
+        show_log_directory_action = QAction(get_icon('pencil-square-o'), '&Log 디렉토리 열기', self)
         show_log_directory_action.triggered.connect(
             lambda: QDesktopServices.openUrl(QUrl.fromLocalFile(os.path.dirname(log_file.name))))
 

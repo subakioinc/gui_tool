@@ -72,7 +72,7 @@ class ESCPanel(QDialog):
 
     def __init__(self, parent, node):
         super(ESCPanel, self).__init__(parent)
-        self.setWindowTitle('ESC Management Panel')
+        self.setWindowTitle('ESC 관리 패널')
         self.setAttribute(Qt.WA_DeleteOnClose)              # This is required to stop background timers!
 
         self._node = node
@@ -121,14 +121,15 @@ class ESCPanel(QDialog):
         controls_layout = QHBoxLayout(self)
         controls_layout.addWidget(QLabel('Channels:', self))
         controls_layout.addWidget(self._num_sliders)
-        controls_layout.addWidget(QLabel('Broadcast interval:', self))
+        controls_layout.addWidget(QLabel('Broadcast 간격:', self))
         controls_layout.addWidget(self._bcast_interval)
         controls_layout.addWidget(QLabel('sec', self))
         controls_layout.addStretch()
         controls_layout.addWidget(self._pause)
         layout.addLayout(controls_layout)
 
-        layout.addWidget(QLabel('Generated message:', self))
+        layout.addWidget(QLabel('생성된 메시지:', self))
+        # layout.addWidget(QLabel('Generated message:', self))
         layout.addWidget(self._msg_viewer)
 
         self.setLayout(layout)
@@ -148,7 +149,7 @@ class ESCPanel(QDialog):
             else:
                 self._msg_viewer.setPlainText('Paused')
         except Exception as ex:
-            self._msg_viewer.setPlainText('Publishing failed:\n' + str(ex))
+            self._msg_viewer.setPlainText('Publishing 실패:\n' + str(ex))
 
     def _do_stop_all(self):
         for sl in self._sliders:
