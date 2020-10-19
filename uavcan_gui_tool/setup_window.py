@@ -57,7 +57,7 @@ def _linux_parse_ip_link_show(out_ifaces):
 
 
 def list_ifaces():
-    """Returns dictionary, where key is description, value is the OS assigned name of the port"""
+    """key, value의 dictionary를 반환. key는 설명, value는 port에 부여한 이름"""
     logger.debug('Updating iface list...')
     if RUNNING_ON_LINUX:
         # Linux system
@@ -143,7 +143,7 @@ class DirectorySelectionWidget(QGroupBox):
         dir_browser = QPushButton('Browse', self)
 
         def on_browse():
-            self._dir_selection = str(QFileDialog.getExistingDirectory(self, 'Select Directory'))
+            self._dir_selection = str(QFileDialog.getExistingDirectory(self, '디렉토리 선택'))
             dir_textbox.setText(self._dir_selection)
 
         dir_browser.clicked.connect(on_browse)
@@ -162,7 +162,7 @@ def run_setup_window(icon, dsdl_path=None):
     win.setWindowTitle('Application Setup')
     win.setWindowIcon(icon)
     win.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint)
-    win.setAttribute(Qt.WA_DeleteOnClose)              # This is required to stop background timers!
+    win.setAttribute(Qt.WA_DeleteOnClose)              # background timer를 정지시키기 위해서 필요
 
     combo = QComboBox(win)
     combo.setEditable(True)

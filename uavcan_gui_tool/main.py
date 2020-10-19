@@ -128,7 +128,7 @@ class MainWindow(QMainWindow):
         self._console_manager = ConsoleManager(self._make_console_context)
 
         #
-        # File menu
+        # 파일 menu
         #
         quit_action = QAction(get_icon('sign-out'), '&Quit', self)
         quit_action.setShortcut(QKeySequence('Ctrl+Shift+Q'))
@@ -138,7 +138,7 @@ class MainWindow(QMainWindow):
         file_menu.addAction(quit_action)
 
         #
-        # Tools menu
+        # 도구 menu
         #
         show_bus_monitor_action = QAction(get_icon('bus'), '&Bus Monitor', self)
         show_bus_monitor_action.setShortcut(QKeySequence('Ctrl+Shift+B'))
@@ -174,7 +174,7 @@ class MainWindow(QMainWindow):
         tools_menu.addAction(show_can_adapter_controls_action)
 
         #
-        # Panels menu
+        # 패널 menu
         #
         panels_menu = self.menuBar().addMenu('&패널')
 
@@ -189,7 +189,7 @@ class MainWindow(QMainWindow):
             panels_menu.addAction(action)
 
         #
-        # Help menu
+        # 도움말 menu
         #
         uavcan_website_action = QAction(get_icon('globe'), 'UAVCAN &Website 열기', self)
         uavcan_website_action.triggered.connect(lambda: QDesktopServices.openUrl(QUrl('http://uavcan.org')))
@@ -443,7 +443,7 @@ class MainWindow(QMainWindow):
 
         def periodic(period_sec, callback):
             """
-            Calls the specified callback with the specified time interval.
+            지정한 시간 구간마다 지정한 callback을 호출
             """
             handle = self._node.periodic(period_sec, callback)
             active_handles.append(handle)
@@ -451,7 +451,7 @@ class MainWindow(QMainWindow):
 
         def defer(delay_sec, callback):
             """
-            Calls the specified callback after the specified amount of time.
+            지정한 시간이 지나면 지정한 callback을 호출
             """
             handle = self._node.defer(delay_sec, callback)
             active_handles.append(handle)
@@ -459,8 +459,8 @@ class MainWindow(QMainWindow):
 
         def stop():
             """
-            Stops all periodic broadcasts (see broadcast()), terminates all subscriptions (see subscribe()),
-            and cancels all deferred and periodic calls (see defer(), periodic()).
+            모든 주기적으로 broadcast하는 것들 정지(broadcast() 참조). 모든 subscription을 종료 (subscribe() 참조), 
+            모든 지연 및 주기적인 호출을 취소 (defer(), periodic() 참조)
             """
             for h in active_handles:
                 try:
@@ -535,7 +535,7 @@ class MainWindow(QMainWindow):
         self._node_windows[node_id] = w
 
     def _spin_node(self):
-        # We're running the node in the GUI thread.
+        # GUI thread에서 node를 실행하고 있음.
         # This is not great, but at the moment seems like other options are even worse.
         try:
             self._node.spin(0)
@@ -568,7 +568,7 @@ def main():
     app = QApplication(sys.argv)
 
     while True:
-        # Asking the user to specify which interface to work with
+        # 사용자가 UAVCAN 도구에 사용할 interface를 지정하는 처리
         try:
             iface, iface_kwargs, dsdl_directory = run_setup_window(get_app_icon(), args.dsdl)
             if not iface:
@@ -586,7 +586,7 @@ def main():
                 uavcan.load_dsdl(dsdl_directory)
                 logger.info('Custom DSDL loaded successfully')
 
-                # setup an environment variable for sub-processes to know where to load custom DSDL from
+                # custom DSDL을 load한 위치를 sub-process가 알게 하기 위해서 환경 변수로 설정 
                 os.environ['UAVCAN_CUSTOM_DSDL_PATH'] = dsdl_directory
         except Exception as ex:
             logger.exception('No DSDL loaded from %r, only standard messages will be supported', dsdl_directory)
@@ -595,7 +595,7 @@ def main():
                        'The application will continue to work without the custom DSDL definitions.' % dsdl_directory,
                        ex, blocking=True)
 
-        # Trying to start the node on the specified interface
+        # 지정한 interface로 node를 구동시키기
         try:
             node_info = uavcan.protocol.GetNodeInfo.Response()
             node_info.name = NODE_NAME
@@ -607,10 +607,10 @@ def main():
                                     mode=uavcan.protocol.NodeStatus().MODE_OPERATIONAL,
                                     **iface_kwargs)
 
-            # Making sure the interface is alright
+            # interface가 정상적으로 동작하는지 확인
             node.spin(0.1)
         except uavcan.transport.TransferError:
-            # allow unrecognized messages on startup:
+            # 시작하는 동안 인식하지 못하는 message 허용:
             logger.warning('구동시점에 UAVCAN 전송 에러 발생', exc_info=True)
             break
         except Exception as ex:
