@@ -89,14 +89,14 @@ class InfoBox(QGroupBox):
                 layout.addLayout(hbox, row, 1)
                 return fields
 
-        self._node_id_name = make_field('Node ID / Name', field_stretch_ratios=(1, 8))
+        self._node_id_name = make_field('Node ID / 이름', field_stretch_ratios=(1, 8))
         self._node_id_name[0].set(target_node_id)
 
         self._mode_health_uptime = make_field('Mode / Health / Uptime', field_stretch_ratios=(1, 1, 1))
-        self._vendor_status = make_field('Vendor-specific code', field_stretch_ratios=(1, 1, 2))
+        self._vendor_status = make_field('벤더 code', field_stretch_ratios=(1, 1, 2))
 
-        self._sw_version_crc = make_field('Software version/CRC64', field_stretch_ratios=(1, 1))
-        self._hw_version_uid = make_field('Hardware version/UID', field_stretch_ratios=(1, 6))
+        self._sw_version_crc = make_field('SW 버전/CRC64', field_stretch_ratios=(1, 1))
+        self._hw_version_uid = make_field('HW 버전/UID', field_stretch_ratios=(1, 6))
         self._cert_of_auth = make_field('Cert. of authenticity')
 
         self.setLayout(layout)

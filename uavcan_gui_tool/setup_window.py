@@ -125,7 +125,7 @@ class BackgroundIfaceListUpdater:
 
 class DirectorySelectionWidget(QGroupBox):
     def __init__(self, parent, dsdl_path=None):
-        super(DirectorySelectionWidget, self).__init__('Location of custom DSDL definitions [optional]', parent)
+        super(DirectorySelectionWidget, self).__init__('커스텀 DSDL 정의 파일 등록 [옵션]', parent)
         self._dir_selection = dsdl_path
         dir_textbox = QLineEdit(self)
         dir_textbox.setText(self._dir_selection)
@@ -159,7 +159,7 @@ class DirectorySelectionWidget(QGroupBox):
 
 def run_setup_window(icon, dsdl_path=None):
     win = QDialog()
-    win.setWindowTitle('Application Setup')
+    win.setWindowTitle('Application 환경설정')
     win.setWindowIcon(icon)
     win.setWindowFlags(Qt.CustomizeWindowHint | Qt.WindowTitleHint | Qt.WindowCloseButtonHint)
     win.setAttribute(Qt.WA_DeleteOnClose)              # background timer를 정지시키기 위해서 필요
