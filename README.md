@@ -104,3 +104,39 @@ Please follow the [Zubax Python Coding Conventions](https://kb.zubax.com/x/_oAh)
  * 이종의 CAN 어댑터 백엔드 지원:
    * SLCAN (LAWICEL) 어댑터, 예) Zubax Babel.
    * Linux SocketCAN.
+
+## windows 실행시 error 발생
+ * ptime.py
+```python
+# -*- coding: utf-8 -*-
+"""
+ptime.py -  Precision time function made os-independent (should have been taken care of by python)
+Copyright 2010  Luke Campagnola
+Distributed under MIT/X11 license. See license.txt for more infomation.
+"""
+
+
+import sys
+import time as systime
+START_TIME = None
+time = None
+
+def winTime():
+    """Return the current time in seconds with high precision (windows version, use Manager.time() to stay platform independent)."""
+    return systime.process_time() + START_TIME #return systime.clock() + START_TIME
+    #return systime.time()
+
+def unixTime():
+    """Return the current time in seconds with high precision (unix version, use Manager.time() to stay platform independent)."""
+    return systime.time()
+
+if sys.platform.startswith('win'):
+    cstart = systime.process_time() #cstart = systime.clock()  ### Required to start the clock in windows
+    START_TIME = systime.time() - cstart
+    
+    time = winTime
+else:
+    time = unixTime
+
+
+```
